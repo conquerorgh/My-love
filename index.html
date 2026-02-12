@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Valentine's Web 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
   <style>
     /* Reset and background */
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,7 +12,9 @@
       height: 100vh;
       width: 100vw;
       overflow: hidden;
-      background: radial-gradient(circle at top left, #ff758c, #ff7eb3);
+      background: linear-gradient(135deg, #ff758c, #ff7eb3, #ffb3ba, #ffdfba);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -19,24 +22,67 @@
       font-family: "Poppins", sans-serif;
       text-align: center;
       position: relative;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="%23ff4b5c"/></svg>'), auto;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h2 {
+      color: #fff;
+      font-family: "Dancing Script", cursive;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px #ff005b;
+      margin-bottom: 1rem;
+      animation: bounceIn 2s ease-out;
+      z-index: 2;
     }
 
     h1 {
       color: #fff;
-      text-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
-      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-family: "Dancing Script", cursive;
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 30px #ff4081;
+      font-size: clamp(2rem, 5vw, 3.5rem);
       line-height: 1.3;
       margin: 0 1rem;
-      animation: glow 2s ease-in-out infinite alternate;
+      animation: glowPulse 3s ease-in-out infinite alternate;
       z-index: 2;
     }
 
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #fff, 0 0 20px #ff005b; }
-      to { text-shadow: 0 0 20px #fff, 0 0 40px #ff4081; }
+    @keyframes bounceIn {
+      0% { transform: scale(0.3); opacity: 0; }
+      50% { transform: scale(1.05); }
+      70% { transform: scale(0.9); }
+      100% { transform: scale(1); opacity: 1; }
     }
 
-    /* Floating hearts */
+    @keyframes glowPulse {
+      from { text-shadow: 0 0 10px #fff, 0 0 20px #ff005b, 0 0 30px #ff4081; }
+      to { text-shadow: 0 0 20px #fff, 0 0 40px #ff005b, 0 0 60px #ff4081; }
+    }
+
+    /* Blinking heart symbol */
+    .blinking-heart {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: clamp(3rem, 8vw, 5rem);
+      color: #ff4b5c;
+      text-shadow: 0 0 20px rgba(255, 75, 92, 0.8);
+      animation: blink 1.5s ease-in-out infinite alternate;
+      z-index: 3;
+    }
+
+    @keyframes blink {
+      from { opacity: 1; transform: translateX(-50%) scale(1); }
+      to { opacity: 0.3; transform: translateX(-50%) scale(1.1); }
+    }
+
+    /* Floating hearts with variety */
     .heart {
       position: absolute;
       width: 16px;
@@ -45,6 +91,7 @@
       transform: rotate(45deg);
       animation: float 6s linear infinite;
       z-index: 1;
+      box-shadow: 0 0 10px rgba(255, 75, 92, 0.5);
     }
 
     .heart::before,
@@ -62,16 +109,36 @@
 
     @keyframes float {
       0% {
-        transform: translateY(0) rotate(45deg);
+        transform: translateY(0) rotate(45deg) scale(1);
         opacity: 1;
       }
+      50% {
+        transform: translateY(-50vh) rotate(45deg) scale(1.2);
+        opacity: 0.8;
+      }
       100% {
-        transform: translateY(-100vh) rotate(45deg);
+        transform: translateY(-100vh) rotate(45deg) scale(0.8);
         opacity: 0;
       }
     }
 
-    /* Rotating messages */
+    /* Sparkle effect */
+    .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #fff;
+      border-radius: 50%;
+      animation: sparkle 2s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Rotating messages with more romance */
     .message {
       position: absolute;
       bottom: 5%;
@@ -80,47 +147,85 @@
       width: 100%;
       animation: fadeText 8s ease-in-out infinite;
       text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+      font-family: "Poppins", sans-serif;
+      font-weight: 300;
     }
 
     @keyframes fadeText {
-      0%, 100% { opacity: 0; }
-      20%, 80% { opacity: 1; }
+      0%, 100% { opacity: 0; transform: translateY(20px); }
+      20%, 80% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Audio controls (optional, hidden) */
+    audio {
+      display: none;
     }
 
     /* Mobile-friendly touch area */
     @media (max-width: 600px) {
-      h1 { font-size: 2rem; }
+      h1 { font-size: 2.5rem; }
+      h2 { font-size: 2rem; }
+      .blinking-heart { font-size: 4rem; top: 8%; }
       .heart { width: 12px; height: 12px; }
       .message { bottom: 8%; font-size: 1rem; }
     }
   </style>
 </head>
 <body>
-  <h2><b>HAJIA SAKINA</b> I Love You Forever</h2>
-  <h1>💖 Happy Valentine's Day 💖<br>From<b>CONQUEROR</b> to You 💌</h1>
+  <!-- Blinking heart symbol -->
+  <div class="blinking-heart">💖</div>
+
+  <h2><b>HAJIA SAKINA</b>, My Eternal Love 💕</h2>
+  <h1>💖 Happy Valentine's Day 💖<br>From <b>CONQUEROR</b> to You 💌</h1>
   
   <div class="message" id="message"></div>
 
+  <!-- Background music (replace with your own audio file) -->
+  <audio autoplay loop>
+    <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
+    <!-- Fallback: You can replace the src with a romantic song URL, e.g., a free love melody from a site like freesound.org or your own file -->
+    Your browser does not support the audio element.
+  </audio>
+
   <script>
-    // Create floating hearts
+    // Create floating hearts with random sizes and colors
     function createHeart() {
       const heart = document.createElement('div');
       heart.classList.add('heart');
       heart.style.left = Math.random() * 100 + 'vw';
       heart.style.animationDuration = (3 + Math.random() * 4) + 's';
       heart.style.opacity = Math.random();
+      const size = 12 + Math.random() * 8;
+      heart.style.width = size + 'px';
+      heart.style.height = size + 'px';
+      const colors = ['#ff4b5c', '#ff6b9d', '#ffb3ba', '#ffdfba'];
+      heart.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
       document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 7000);
     }
-    setInterval(createHeart, 400);
+    setInterval(createHeart, 300);
 
-    // Rotate love messages
+    // Create sparkles for extra magic
+    function createSparkle() {
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('sparkle');
+      sparkle.style.left = Math.random() * 100 + 'vw';
+      sparkle.style.top = Math.random() * 100 + 'vh';
+      sparkle.style.animationDelay = Math.random() * 2 + 's';
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 2000);
+    }
+    setInterval(createSparkle, 500);
+
+    // Rotate love messages with more heartfelt content
     const messages = [
-      "You make my heart smile 💕",
-      "Forever and always 💘",
+      "You make my heart smile every day 💕",
+      "Forever and always, my love 💘",
       "You're my favorite reason to smile 😊",
-      "Love is in the air 💞",
-      "You're the one I adore 💖"
+      "Love is in the air, and it's all for you 💞",
+      "You're the one I adore, now and forever 💖",
+      "My heart beats only for you 🥰",
+      "In your eyes, I found my paradise 🌹"
     ];
 
     let index = 0;
@@ -131,6 +236,23 @@
     }
     showMessage();
     setInterval(showMessage, 4000);
+
+    // Add click interaction for extra hearts
+    document.body.addEventListener('click', (e) => {
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+          const heart = document.createElement('div');
+          heart.classList.add('heart');
+          heart.style.left = e.clientX + (Math.random() - 0.5) * 100 + 'px';
+          heart.style.top = e.clientY + (Math.random() - 0.5) * 100 + 'px';
+          heart.style.animationDuration = '2s';
+          heart.style.width = '20px';
+          heart.style.height = '20px';
+          document.body.appendChild(heart);
+          setTimeout(() => heart.remove(), 2000);
+        }, i * 100);
+      }
+    });
   </script>
 </body>
 </html>
