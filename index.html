@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valentine's Web 💖</title>
+  <style>
+    /* Reset and background */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      background: radial-gradient(circle at top left, #ff758c, #ff7eb3);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: "Poppins", sans-serif;
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      color: #fff;
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1.3;
+      margin: 0 1rem;
+      animation: glow 2s ease-in-out infinite alternate;
+      z-index: 2;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fff, 0 0 20px #ff005b; }
+      to { text-shadow: 0 0 20px #fff, 0 0 40px #ff4081; }
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background-color: #ff4b5c;
+      transform: rotate(45deg);
+      animation: float 6s linear infinite;
+      z-index: 1;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background-color: #ff4b5c;
+      border-radius: 50%;
+    }
+
+    .heart::before { top: -8px; left: 0; }
+    .heart::after { top: 0; left: -8px; }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    /* Rotating messages */
+    .message {
+      position: absolute;
+      bottom: 5%;
+      color: #fff;
+      font-size: clamp(1rem, 3.5vw, 1.5rem);
+      width: 100%;
+      animation: fadeText 8s ease-in-out infinite;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    }
+
+    @keyframes fadeText {
+      0%, 100% { opacity: 0; }
+      20%, 80% { opacity: 1; }
+    }
+
+    /* Mobile-friendly touch area */
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .heart { width: 12px; height: 12px; }
+      .message { bottom: 8%; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <h2><b>HAJIA SAKINA</b> I Love You Forever</h2>
+  <h1>💖 Happy Valentine's Day 💖<br>From<b>CONQUEROR</b> to You 💌</h1>
+  
+  <div class="message" id="message"></div>
+
+  <script>
+    // Create floating hearts
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (3 + Math.random() * 4) + 's';
+      heart.style.opacity = Math.random();
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }
+    setInterval(createHeart, 400);
+
+    // Rotate love messages
+    const messages = [
+      "You make my heart smile 💕",
+      "Forever and always 💘",
+      "You're my favorite reason to smile 😊",
+      "Love is in the air 💞",
+      "You're the one I adore 💖"
+    ];
+
+    let index = 0;
+    const messageEl = document.getElementById('message');
+    function showMessage() {
+      messageEl.textContent = messages[index];
+      index = (index + 1) % messages.length;
+    }
+    showMessage();
+    setInterval(showMessage, 4000);
+  </script>
+</body>
+</html>
